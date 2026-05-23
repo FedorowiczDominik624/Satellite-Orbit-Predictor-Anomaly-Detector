@@ -12,7 +12,7 @@
 # ─── Planned stack (per project CLAUDE.md, will be added as we hit each milestone) ───
 #
 # Month 1 — data plumbing:
-#   requests           # pull TLE files from CelesTrak HTTP endpoints
+   requests           # pull TLE files from CelesTrak HTTP endpoints
 #
 # Month 2 — orbital mechanics:
 #   sgp4               # canonical SGP4 propagator (NORAD-blessed)

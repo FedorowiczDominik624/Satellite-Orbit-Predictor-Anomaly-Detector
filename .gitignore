@@ -216,3 +216,21 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ─── Project-specific (added by Dominik) ───
+
+# Satellite data — too big and time-sensitive to commit. See data/README.md for why.
+data/
+!data/README.md
+!data/.gitkeep
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Local config / secrets
+.env.local
+*.key
+credentials.json
+token.json
+

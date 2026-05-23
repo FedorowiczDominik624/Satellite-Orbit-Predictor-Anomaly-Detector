@@ -1,0 +1,28 @@
+# Satellite Orbit Predictor + Anomaly Detector dependencies
+#
+# Install workflow:
+#   python -m venv venv
+#   .\venv\Scripts\Activate.ps1   (Windows PowerShell)
+#   pip install -r requirements.txt
+#
+# Add new libraries as you actually use them — don't pre-install:
+#   pip install <lib>
+#   pip freeze > requirements.txt
+#
+# ─── Planned stack (per project CLAUDE.md, will be added as we hit each milestone) ───
+#
+# Month 1 — data plumbing:
+#   requests           # pull TLE files from CelesTrak HTTP endpoints
+#
+# Month 2 — orbital mechanics:
+#   sgp4               # canonical SGP4 propagator (NORAD-blessed)
+#   # OR skyfield      # higher-level convenience wrapper around sgp4 + ephemerides
+#   numpy              # vector math
+#
+# Month 3 — ML anomaly detection:
+#   scikit-learn       # Isolation Forest, One-Class SVM
+#   pandas             # tabular handling of orbital element time series
+#
+# Month 4+ — visualization + polish:
+#   plotly             # interactive 3D orbit plots for portfolio demo
+#   matplotlib         # static plots for README screenshots

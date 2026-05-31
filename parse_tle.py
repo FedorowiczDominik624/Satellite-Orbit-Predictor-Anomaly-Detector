@@ -14,6 +14,8 @@ def parse_tle_block(name: str, line1: str, line2: str) -> dict:
 e.g. 144.12345678
             "inclination_deg": float, # orbital inclination, e.g.
 51.6416
+            "line 1": str,
+            "line 2": str,
        }
     """
     
@@ -29,6 +31,8 @@ e.g. 144.12345678
         "epoch_year": epoch_year,
         "epoch_day": epoch_day,
         "inclination_deg": inclination_deg,
+        "line1": line1.strip(),
+        "line2": line2.strip(),
     }
     return parsed
 

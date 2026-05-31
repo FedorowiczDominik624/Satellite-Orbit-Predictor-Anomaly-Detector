@@ -15,9 +15,8 @@
    requests           # pull TLE files from CelesTrak HTTP endpoints
 #
 # Month 2 — orbital mechanics:
-#   sgp4               # canonical SGP4 propagator (NORAD-blessed)
-#   # OR skyfield      # higher-level convenience wrapper around sgp4 + ephemerides
-#   numpy              # vector math
+   skyfield           # SGP4 propagation + time scales + coordinate transforms (picked May 31)
+#                     # (transitively installs sgp4, numpy, jplephem)
 #
 # Month 3 — ML anomaly detection:
 #   scikit-learn       # Isolation Forest, One-Class SVM

@@ -56,10 +56,3 @@ if __name__ == "__main__":
     result = parse_tle_block(name, line1, line2)
     print(result)
 
-print("\nFetch live TLE data form CelesTrak...")
-live_text = fetch_tles(TLE_URL)
-live_stats = parse_all_tles(live_text)
-print(f"Parsed {len(live_stats)} satellites from live data")
-print("\nFrist 3 satellites:")
-for sat in live_stats[:3]:
-    print(sat)

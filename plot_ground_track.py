@@ -15,8 +15,11 @@ def plot_ground_track_scatter(sats: list[dict]) -> None:
     longs = [sat["longitude"] for sat in sats]
 
     plt.scatter(longs, lats)
+    plt.title("Satellite ground track")
     plt.xlabel("Longitude")
     plt.ylabel("Latitude")
+    for sat in sats:
+        plt.text(sat["longitude"], sat["latitude"], sat["name"])
     plt.show()
 
 if __name__ == "__main__":

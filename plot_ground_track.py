@@ -3,14 +3,18 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
 def plot_ground_track_scatter(sats: list[dict]) -> None:
-    """Scatter-plot satellite (longitude, latitude) positions on plain matplotlib axes.
+    """Plot satellite ground-track positions on a PlateCarree world map.
 
-    Smoke test only — no projection, no basemap, no labels. Just prove the data
-    reaches matplotlib and a window opens with 25 dots in roughly the right shape.
+    Draws all satellites as a scatter on a cartopy basemap with coastlines and
+    labeled latitude/longitude gridlines. Only satellites whose names appear in
+    the function's `key_names` list get text labels next to their dot; all others
+    are drawn unlabeled to keep the plot readable.
 
     Args:
-        sats: list of propagated satellite dicts, each with 'latitude' and 'longitude' keys.
+        sats: list of propagated satellite dicts, each with 'latitude',
+              'longitude', and 'name' keys.
     """
+
 
     lats = [sat["latitude"] for sat in sats]
     longs = [sat["longitude"] for sat in sats]

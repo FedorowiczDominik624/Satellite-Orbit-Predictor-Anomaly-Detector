@@ -40,17 +40,8 @@ def parse_all_tles(text: str) -> list[dict]:
     """Parse a multi-satellite TLE blob into a list of dicts"""
     
     lines = text.splitlines()
-    all_tle_data = []
 
-    for i in range(0, len(lines), 3):
-        name = lines[i]
-        line1 = lines[i + 1]
-        line2 = lines[i + 2]
-
-        sat_dict = parse_tle_block(name, line1, line2)
-        all_tle_data.append(sat_dict)
-
-    return all_tle_data
+    return [parse_tle_block(lines[i], lines[i + 1], lines[i + 2]) for i in range(0, len(lines), 3)]
 
 if __name__ == "__main__":
     name = "ISS (ZARYA)\n"

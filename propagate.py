@@ -29,6 +29,15 @@ def propagate(sat: dict, when: datetime) -> tuple[float, float, float]:
 
     return (latitude, longitude, altitude)
 
+def propagate_all(sats: list[dict], when: datetime) -> list[dict]:
+
+    results = []
+    for sat in sats:
+        latitude, longitude, altitude = propagate(sat, when)
+        new_sat = {**sat, "latitude": latitude, "longitude": longitude, "altitude": altitude}
+        results.append(new_sat)
+    return results
+
 if __name__ == "__main__":
 
     sats_data = json.loads(Path("data/satellites.json").read_text())
@@ -42,3 +51,12 @@ if __name__ == "__main__":
     print(f"  Latitude:  {lat:7.3f}°")
     print(f"  Longitude: {lon:7.3f}°")
     print(f"  Altitude:  {alt:.1f} km")
+
+    results = propagate_all(sats_data, right_now)
+    print(f"Got {len(results)} satellites")
+    
+    for sat in results[:3]:
+        print(f"{sat['name']}:")          
+        print(f"  Latitude:  {sat['latitude']:7.3f}°")
+        print(f"  Longitude:  {sat['longitude']:7.3f}°")
+        print(f"  Altitude:  {sat['altitude']:.1f} km")

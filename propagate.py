@@ -33,14 +33,20 @@ def propagate_all(sats: list[dict], when: datetime) -> list[dict]:
 
     results = []
     for sat in sats:
-        latitude, longitude, altitude = propagate(sat, when)
-        new_sat = {**sat, "latitude": latitude, "longitude": longitude, "altitude": altitude}
-        results.append(new_sat)
+        try:
+            latitude, longitude, altitude = propagate(sat, when)
+            new_sat = {**sat, "latitude": latitude, "longitude": longitude, "altitude": altitude}
+            results.append(new_sat)
+        except Exception as e:
+            print(f"Warning: failed to propagate {sat['name']}: {e}")
     return results
 
 if __name__ == "__main__":
 
     sats_data = json.loads(Path("data/satellites.json").read_text())
+    # TEMP TEST: inject a deliberately bad sat to verify error handling
+    sats_data.append({"name": "FAKE_BAD_SAT"})
+
     iss = sats_data[0]  # ISS is first in the list (it's our hello-world satellite)
 
     right_now = datetime.now(timezone.utc)
@@ -51,6 +57,7 @@ if __name__ == "__main__":
     print(f"  Latitude:  {lat:7.3f}°")
     print(f"  Longitude: {lon:7.3f}°")
     print(f"  Altitude:  {alt:.1f} km")
+    
 
     results = propagate_all(sats_data, right_now)
     print(f"Got {len(results)} satellites")

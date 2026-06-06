@@ -1,6 +1,7 @@
 import json
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
+import cartopy.feature as cfeature
 
 def plot_ground_track_scatter(sats: list[dict]) -> None:
     """Plot satellite ground-track positions on a PlateCarree world map.
@@ -20,9 +21,11 @@ def plot_ground_track_scatter(sats: list[dict]) -> None:
     longs = [sat["longitude"] for sat in sats]
 
     fig, ax = plt.subplots(subplot_kw={"projection": ccrs.PlateCarree()})
-    ax.coastlines()
-    ax.gridlines(draw_labels=True)
-    ax.scatter(longs, lats, transform=ccrs.PlateCarree())
+    ax.add_feature(cfeature.OCEAN)
+    ax.add_feature(cfeature.LAND)
+    ax.coastlines(linewidth=0.75)
+    ax.gridlines(draw_labels=True, alpha=0.4)
+    ax.scatter(longs, lats, transform=ccrs.PlateCarree(), s=60, edgecolors="white", linewidths=0.75)
     ax.set_title("Satellite ground track")
     ax.set_xlabel("Longitude")
     ax.set_ylabel("Latitude")

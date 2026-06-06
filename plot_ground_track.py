@@ -30,6 +30,7 @@ def plot_ground_track_scatter(sats: list[dict]) -> None:
     for sat in sats:
         if sat["name"] in key_names:
             ax.text(sat["longitude"], sat["latitude"], sat["name"], transform=ccrs.PlateCarree())
+    plt.savefig("docs/ground_track.png", bbox_inches="tight", dpi=150)
     plt.show()
 
 

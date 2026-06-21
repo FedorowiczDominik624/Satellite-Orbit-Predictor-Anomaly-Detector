@@ -38,6 +38,31 @@ def plot_ground_track_snapshot(sats: list[dict]) -> None:
     plt.savefig("docs/ground_track.png", bbox_inches="tight", dpi=150)
     plt.show()
 
+def split_at_wraparound(lons: list[float], lats: list[float]) -> list[tuple[list[float], list[float]]]:
+    """Split a polyline into segments at date-line crossings.
+
+    Walks the lons looking for consecutive jumps > 180° in absolute value.
+    When found, ends the current segment and starts a new one.
+
+    Returns:
+        A list of (segment_lons, segment_lats) tuples. A polyline with no
+        wraparound returns a single-tuple list.
+    """
+
+    segments = []
+    current_lons = []
+    current_lats = []
+
+    for i in range(len(lons)):
+        if i > 0 and abs(lons[i] - lons[i-1]) > 180:
+            segments.append((current_lons, current_lats))
+            current_lons = []
+            current_lats = []
+        current_lons.append(lons[i])
+        current_lats.append(lats[i])
+    segments.append((current_lons, current_lats))
+    return segments
+
 def plot_ground_track_lines(sats: list[dict], hours: float) -> None:
     """plot ground-track polylines for each satellite over 'hours'
     hours of orbit"""
@@ -71,9 +96,11 @@ def plot_ground_track_lines(sats: list[dict], hours: float) -> None:
 
 
     for i in range(len(all_lons)):
-        all_xs = all_lons[i]
-        all_ys = all_lats[i]
-        ax.plot(all_xs, all_ys, transform=ccrs.PlateCarree())
+        sat_lons = all_lons[i]
+        sat_lats = all_lats[i]
+        segments = split_at_wraparound(sat_lons, sat_lats)
+        for seg_lons, seg_lats in segments:
+            ax.plot(seg_lons, seg_lats, transform=ccrs.PlateCarree())
 
     ax.set_title("Satellite ground track over 3 hours")
     ax.set_xlabel("Longitude")

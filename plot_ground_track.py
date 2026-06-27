@@ -1,4 +1,5 @@
 import json
+import math
 from propagate import propagate
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
@@ -78,7 +79,7 @@ def plot_ground_track_lines(sats: list[dict], hours: float) -> None:
     step = timedelta(minutes=5)
 
     timestamps = []
-    for a in range(36):
+    for a in range(math.ceil(12 * hours)):
         timestamps.append(start + a * step)
 
     all_lats = []
@@ -113,7 +114,7 @@ if __name__ == "__main__":
     with open("data/propagated_satellites.json") as f:
         propagated_sats = json.load(f)
     plot_ground_track_snapshot(propagated_sats)
-    
+
     # Load raw sats for the lines version
     with open("data/satellites.json") as f:
         raw_sats = json.load(f)

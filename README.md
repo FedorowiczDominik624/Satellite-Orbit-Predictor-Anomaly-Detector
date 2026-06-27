@@ -1,7 +1,9 @@
 # Satellite-Orbit-Predictor-Anomaly-Detector
 A portfolio-grade Python + ML project that pulls public NORAD TLE data, predicts satellite orbital positions, and layers a machine-learning anomaly detector to flag unusual behavior (station-keeping burns, collision risks, deorbiting events).
 
-![Satellite ground track](docs/ground_track.png)
+![A PlateCarree projection of 24 satellite paths showing motion over 3 hours.](docs/ground_track_lines.png)
+
+*`skyfield` propagates the data, `Cartopy` makes the base map, and `matplotlib` renders the lines. `split_at_wraparound` is the worker that segments the SGP4 data then matplotlib renders onto the Cartopy map; the jump at 359 degrees doesn't occur, which yields a clean map without streaks.*
 
 ## What It Does
 
